@@ -13,6 +13,9 @@ from ThreddsCrawler import ThreddsCrawler
 
 class ThreddsExplorer(cmd.Cmd):
    """docstring for ThreddExplorer"""
+   def __init__(self):
+      cmd.Cmd.__init__(self)
+      self.prompt = "> "
 
    def do_setthredds(self, url):
       print "you wanted to explore %s" % url
@@ -21,12 +24,32 @@ class ThreddsExplorer(cmd.Cmd):
    def do_get_top_level(self, line):
       print self.t_crawl.getTopLevel()
 
+   def do_debug(self, line):
+      print self.t_crawl.catalog
    def do_q(self, line):
       return self.do_quit('')
-      
+   def do_1(self, line):
+      print self.lastcmd
+      if self.lastcmd is "get_top_level":
+         print "you are allowed to do that now"
+      else:
+         pass
+   def do_generate(self, line):
+      gen = GenMenu()
+      gen.cmdloop()
+
    def do_quit(self, line):
       return True
 
+class GenMenu(cmd.Cmd):
+   """docstring for GenMenu"""
+   def __init__(self):
+      cmd.Cmd.__init__(self)
+      self.prompt = "GEN > "
+
+   def do_quit(self, line):
+      return True
+      
 
 if __name__ == '__main__':
     ThreddsExplorer().cmdloop()
