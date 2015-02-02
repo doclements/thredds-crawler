@@ -35,7 +35,7 @@ class ThreddsExplorer(cmd.Cmd):
       else:
          pass
    def do_generate(self, line):
-      gen = GenMenu()
+      gen = GenMenu(self.t_crawl)
       gen.cmdloop()
 
    def do_quit(self, line):
@@ -43,10 +43,13 @@ class ThreddsExplorer(cmd.Cmd):
 
 class GenMenu(cmd.Cmd):
    """docstring for GenMenu"""
-   def __init__(self):
+   def __init__(self, catalog):
       cmd.Cmd.__init__(self)
+      self.catalog = catalog
       self.prompt = "GEN > "
 
+   def do_test(self,line):
+      print self.catalog.catalog
    def do_quit(self, line):
       return True
       
