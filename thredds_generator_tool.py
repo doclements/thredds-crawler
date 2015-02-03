@@ -20,24 +20,28 @@ class ThreddsExplorer(cmd.Cmd):
    def do_setthredds(self, url):
       print "you wanted to explore %s" % url
       self.t_crawl = ThreddsCrawler(url)
+      self.t_crawl.getTopLevel()
 
-   def do_get_top_level(self, line):
-      print self.t_crawl.getTopLevel()
+   def do_datasets(self, line):
+      print self.t_crawl.display_catalogs()
 
    def do_debug(self, line):
       print self.t_crawl.catalog
    def do_q(self, line):
       return self.do_quit('')
-   def do_1(self, line):
-      print self.lastcmd
-      if self.lastcmd is "get_top_level":
-         print "you are allowed to do that now"
-      else:
-         pass
+   def do_template(self, line):
+      print self.t_crawl.t_test()
    def do_generate(self, line):
       gen = GenMenu(self.t_crawl)
       gen.cmdloop()
 
+   def do_getdataset(self, arg):
+      print arg
+      if int(arg) in [x['id'] for x in self.t_crawl.catalog['top_level']]:
+         print self.t_crawl.getSub(arg)
+      else:
+         print "ERROR : please select a number from the below"
+         self.do_datasets('')
    def do_quit(self, line):
       return True
 

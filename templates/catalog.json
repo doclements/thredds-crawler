@@ -1,0 +1,21 @@
+{
+   "title" : "{{ catalog.title }}",
+   "root_url" : "{{ catalog.base_url }}", 
+   "services" : [
+   {% for service in catalog.services %}
+      {
+         "type" : "{{service.name}}",
+         "url"  : "{{service.base}}"
+      }{% if not loop.last %}, {% endif %}
+   {% endfor %}
+   ],
+   "catalogs" : [
+   {% for catalog in catalog.top_level %}
+   {  
+      "id"    : "{{ catalog.id}}",
+      "title" : "{{ catalog.title }}",
+      "path"  : "{{ catalog.path }}"
+   }{% if not loop.last %}, {% endif %}
+   {% endfor %}
+   ]
+}

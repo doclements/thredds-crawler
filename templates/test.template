@@ -1,0 +1,6 @@
+{{ catalog.title }}
+
+Data Catalogs : 
+{% for dataset in catalog.top_level -%}
+{{ dataset.title }} - {{ dataset.id }}
+{% endfor %}
