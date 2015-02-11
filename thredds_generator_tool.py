@@ -25,7 +25,7 @@ class ThreddsExplorer(cmd.Cmd):
             url = "https://vortices.npm.ac.uk/thredds/"
         print "you wanted to explore %s" % url
         self.t_crawl = ThreddsCrawler(url)
-        self.t_crawl.getTopLevel()
+        #self.t_crawl.getTopLevel()
 
     def do_catalogs(self, line):
         print self.t_crawl.display_catalogs()
@@ -45,11 +45,11 @@ class ThreddsExplorer(cmd.Cmd):
 
     def do_getdataset(self, arg):
         print arg
-        if int(arg) in [x['id'] for x in self.t_crawl.catalog['top_level']]:
+        if int(arg) in [x.id for x in self.t_crawl.server.catalogs]:
             print self.t_crawl.getSub(arg)
         else:
             print "ERROR : please select a number from the below"
-            self.do_datasets('')
+            self.do_catalogs('')
 
     def do_quit(self, line):
         return True
